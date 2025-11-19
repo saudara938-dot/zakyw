@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mie Ayam Raos - Raos Pisan Eeuuuuyyy!</title>
+    
+    <!-- Tailwind CSS (Framework Desain Modern) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Poppins untuk kesan profesional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yellowtail&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome (Ikon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Konfigurasi Tema -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d35400', // Warna oranye bata (khas mie ayam)
+                        secondary: '#f39c12', // Warna kuning
+                        dark: '#2c3e50',
+                        light: '#ecf0f1'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        script: ['Yellowtail', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .hero-bg {
+            /* --- GANTI FOTO BACKGROUND UTAMA (HERO) DI BAWAH INI --- */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-badge {
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Hide scrollbar for horizontal scroll areas */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-dark font-sans antialiased">
+
+    <!-- NAVBAR (Sticky) -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-md" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary flex items-center gap-2">
+                <i class="fa-solid fa-bowl-food"></i>
+                <span class="font-script text-3xl">Raos</span>
+            </a>
+            
+            <!-- Cart Icon Mobile/Desktop -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" class="relative p-2 text-dark hover:text-primary transition">
+                    <i class="fa-solid fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <a href="#menu" class="hidden md:block bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-orange-700 transition shadow-lg">
+                    Pesan Sekarang
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-bg h-screen flex items-center justify-center text-center px-4 pt-16 relative overflow-hidden">
+        <div class="max-w-3xl text-white" data-aos="zoom-in" data-aos-duration="1000">
+            <p class="text-secondary font-script text-3xl md:text-5xl mb-2">Selamat Datang di</p>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight text-shadow">
+                MIE AYAM <span class="text-primary">RAOS</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 font-light italic">"Raos Pisan Eeeuuyyy!"</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#menu" class="bg-primary hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition duration-300 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-utensils"></i> Lihat Menu
+                </a>
+                <a href="https://wa.me/6282325670283" target="_blank" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition duration-300 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Hubungi Kami
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white opacity-70">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- INFO / KEUNGGULAN -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 rounded-2xl bg-orange-50 border border-orange-100 hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-check-circle text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">100% Halal & Higienis</h3>
+                    <p class="text-gray-600">Dibuat dari bahan pilihan berkualitas, ayam segar, dan bumbu rempah rahasia.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-orange-50 border border-orange-100 hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-tag text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Harga Bersahabat</h3>
+                    <p class="text-gray-600">Rasa bintang lima, harga kaki lima. Cocok untuk kantong pelajar hingga keluarga.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-orange-50 border border-orange-100 hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-motorcycle text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Siap Pesan Antar</h3>
+                    <p class="text-gray-600">Magar? Tinggal WA, kami siapkan pesanan Anda dengan cepat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION (DIKEMBALIKAN) -->
+    <section id="menu" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="fade-down">
+                <span class="text-primary font-script text-2xl">Pilihan Favorit</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark">Menu Spesial Kami</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Grid Menu -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Item 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO MIE AYAM PANGSIT DI SINI (src="...") --- -->
+                        <img src="gambar/12.000.jpg.png" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full shadow-md">Best Seller</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Mie Ayam Pangsit Basah</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">Mie kenyal dengan topping ayam kecap gurih, sayur sawi segar, dan pangsit basah yang lembut.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 12.000</span>
+                            <button onclick="addToCart('Mie Ayam Pangsit Basah', 12000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO MIE AYAM BAKSO DI SINI --- -->
+                        <img src="gambar/bakso.png" alt="Mie Ayam Bakso" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Mie Ayam Bakso</h3>
+                        <p class="text-gray-500 text-sm mb-4">Perpaduan mie ayam klasik dengan tambahan bakso sapi asli yang kenyal dan nikmat.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 15.000</span>
+                            <button onclick="addToCart('Mie Ayam Bakso', 15000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO CEKER DI SINI --- -->
+                        <img src="gambar/15000 ceker.png" alt="Mie Ayam Ceker" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Mie Ayam Ceker</h3>
+                        <p class="text-gray-500 text-sm mb-4">Untuk pecinta ceker! Ceker ayam yang dimasak hingga empuk dengan bumbu meresap.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 15.000</span>
+                            <button onclick="addToCart('Mie Ayam Ceker', 15000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO KOMPLIT DI SINI --- -->
+                        <img src="gambar/komplit.png" alt="Mie Ayam Komplit" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full shadow-md">Komplit!</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Mie Ayam Komplit</h3>
+                        <p class="text-gray-500 text-sm mb-4">Paket puas! Mie ayam + Bakso + Pangsit + Ceker. Dijamin kenyang dan raos pisan.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 18.000</span>
+                            <button onclick="addToCart('Mie Ayam Komplit', 18000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO ES TEH DI SINI --- -->
+                        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Es Teh Manis" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Es Teh Manis</h3>
+                        <p class="text-gray-500 text-sm mb-4">Kesegaran teh asli dengan gula murni, teman terbaik makan mie ayam.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 5.000</span>
+                            <button onclick="addToCart('Es Teh Manis', 5000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Item 6 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-48 overflow-hidden">
+                        <!-- --- GANTI FOTO KOMPLIT DI SINI --- -->
+                        <img src="gambar/krupuk.png" alt="krupuk" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                        <span class="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full shadow-md">Komplit!</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2">Kerupuk Ikan</h3>
+                        <p class="text-gray-500 text-sm mb-4">Kerupuk Renyah untuk menemani Makan Mie Ayam.</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-xl font-bold text-primary">Rp 2.000</span>
+                            <button onclick="addToCart('Kerupuk', 2000)" class="bg-dark text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary transition shadow-md">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & CONTACT (DIKEMBALIKAN) -->
+    <section class="py-16 bg-white" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Maps Text -->
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-6">Kunjungi Kedai Kami</h2>
+                    <p class="mb-6 text-gray-600 leading-relaxed">
+                        Ayo mampir dan rasakan sensasi "Raos Pisan" langsung di tempat kami. Tempat nyaman, pelayanan ramah, dan rasa yang tak terlupakan.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-location-dot text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Alamat</h4>
+                                <p class="text-sm text-gray-600">Gramapuri tamansari, Bunderan, Wanasari, Kec. Cibitung, Kabupaten Bekasi, Jawa Barat 17510(titik maps)</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-brands fa-whatsapp text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">WhatsApp</h4>
+                                <p class="text-sm text-gray-600">0823-2567-0283</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-regular fa-clock text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Jam Buka</h4>
+                                <p class="text-sm text-gray-600">Setiap Hari: 10.00 - 21.00 WIB (Jumat Tutup)</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a href="https://maps.app.goo.gl/DLAGXnpRKCeUMAoq8" target="_blank" class="inline-block bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                        <i class="fa-solid fa-map-location-dot mr-2"></i> Buka Google Maps
+                    </a>
+                </div>
+
+                <!-- Maps Iframe/Image Card -->
+                <div class="h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative group" data-aos="fade-left">
+                    <!-- --- GANTI FOTO LOKASI/PETA DI SINI --- -->
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition duration-700" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+                    <div class="absolute inset-0 flex items-center justify-center flex-col text-white">
+                        <i class="fa-solid fa-location-dot text-5xl mb-2 animate-bounce"></i>
+                        <h3 class="text-2xl font-bold">Lokasi Mie Ayam Raos</h3>
+                        <p class="text-sm">Klik untuk navigasi</p>
+                        <a href="https://maps.app.goo.gl/DLAGXnpRKCeUMAoq8" target="_blank" class="absolute inset-0 z-10"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEEDBACK & PENGADUAN (Suara Pelanggan) -->
+    <section class="py-12 bg-orange-50 border-t border-orange-200 relative overflow-hidden">
+        <!-- Dekorasi Background Abstrak -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <i class="fa-solid fa-comment-dots absolute top-10 left-10 text-6xl text-primary transform -rotate-12"></i>
+            <i class="fa-solid fa-heart absolute bottom-10 right-10 text-6xl text-primary transform rotate-12"></i>
+        </div>
+
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-dark mb-3" data-aos="fade-up">Bantu Kami Jadi Lebih Baik</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+                Kepuasan Anda adalah prioritas Mie Ayam Raos. Punya keluhan layanan atau ingin memberi saran agar kami makin <i>Raos Pisan</i>? Sampaikan di sini.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6" data-aos="fade-up" data-aos-delay="200">
+                
+                <!-- TOMBOL 1: LAYANAN PENGADUAN -->
+                <!-- GANTI 'LINK_GOOGLE_FORM_PENGADUAN_...' DENGAN LINK ANDA -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScHLbZzNgZ8Jeo8TtBYWMugA3ScRNcapFEzm0KSXqSDX87gjw/viewform?usp=publish-editor" target="_blank" class="group bg-white hover:bg-red-500 border-2 border-red-100 hover:border-red-500 text-red-500 hover:text-white font-bold py-4 px-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                    <div class="w-10 h-10 bg-red-50 group-hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <span class="block text-xs font-normal opacity-80">Ada Masalah?</span>
+                        <span class="text-lg">Layanan Pengaduan</span>
+                    </div>
+                </a>
+                
+                <!-- TOMBOL 2: ULAS & MASUKAN -->
+                <!-- GANTI 'LINK_GOOGLE_FORM_ULASAN_...' DENGAN LINK ANDA -->
+                <a href="https://g.page/r/CQLkJAw8OWU3EBM/review" target="_blank" class="group bg-white hover:bg-yellow-500 border-2 border-yellow-100 hover:border-yellow-500 text-yellow-600 hover:text-white font-bold py-4 px-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                    <div class="w-10 h-10 bg-yellow-50 group-hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-star text-xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <span class="block text-xs font-normal opacity-80">Suka Makanannya?</span>
+                        <span class="text-lg">Beri Ulasan & Saran</span>
+                    </div>
+                </a>
+
+            </div>
+            <p class="mt-6 text-xs text-gray-400 italic">*Privasi Anda aman, masukan akan langsung diterima owner.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-8 border-t-4 border-primary">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-script text-3xl text-primary mb-2">Mie Ayam Raos</h2>
+            <p class="mb-4 text-gray-400 text-sm">Raos Pisan Eeuuuuyyy!</p>
+            <div class="flex justify-center gap-4 mb-6">
+                <a href="https://www.instagram.com/mie_ayam_raosgp/" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.instagram.com/mie_ayam_raosgp/" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+            <p class="text-xs text-gray-500">&copy; est.2014 Mie Ayam Raos. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING CART / ORDER SHEET -->
+    <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        
+        <!-- Drawer -->
+        <div class="absolute right-0 bottom-0 top-0 w-full md:w-96 bg-white shadow-2xl transform transition-transform duration-300 translate-x-full flex flex-col" id="cart-drawer">
+            <div class="p-5 bg-primary text-white flex justify-between items-center shadow-md">
+                <h2 class="text-xl font-bold"><i class="fa-solid fa-receipt mr-2"></i> Pesanan Anda</h2>
+                <button onclick="toggleCart()" class="text-white hover:text-gray-200">
+                    <i class="fa-solid fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 p-5 overflow-y-auto" id="cart-items">
+                <!-- Empty State -->
+                <div class="h-full flex flex-col items-center justify-center text-gray-400">
+                    <i class="fa-solid fa-basket-shopping text-6xl mb-4 text-gray-200"></i>
+                    <p>Keranjang masih kosong</p>
+                    <p class="text-sm">Yuk pilih menu favoritmu!</p>
+                    <button onclick="toggleCart()" class="mt-4 text-primary font-bold text-sm hover:underline">Kembali ke Menu</button>
+                </div>
+            </div>
+
+            <div class="p-5 bg-gray-50 border-t border-gray-200">
+                <div class="flex justify-between mb-4 text-lg font-bold text-dark">
+                    <span>Total:</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-lg transition transform active:scale-95 flex justify-center items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Kirim Pesanan ke WA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init Animation
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+        });
+
+        // Navbar Blur Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md', 'py-2');
+                nav.classList.remove('py-3');
+            } else {
+                nav.classList.remove('shadow-md', 'py-2');
+                nav.classList.add('py-3');
+            }
+        });
+
+        // --- CART LOGIC ---
+        let cart = [];
+
+        function addToCart(name, price) {
+            // Cek apakah item sudah ada
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            updateCartUI();
+            toggleCart(true); // Buka cart otomatis saat tambah
+            
+            // Efek getar cart badge
+            const btn = document.getElementById('cart-count');
+            btn.classList.remove('hidden');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateQty(index, change) {
+            if (cart[index].qty + change > 0) {
+                cart[index].qty += change;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const cartCount = document.getElementById('cart-count');
+            
+            // Update Count Badge
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCount.innerText = totalQty;
+            if(totalQty > 0) cartCount.classList.remove('hidden');
+            else cartCount.classList.add('hidden');
+
+            // Render Items
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                <div class="h-full flex flex-col items-center justify-center text-gray-400">
+                    <i class="fa-solid fa-basket-shopping text-6xl mb-4 text-gray-200"></i>
+                    <p>Keranjang masih kosong</p>
+                </div>`;
+                cartTotal.innerText = "Rp 0";
+            } else {
+                let html = '';
+                let total = 0;
+                cart.forEach((item, index) => {
+                    total += item.price * item.qty;
+                    html += `
+                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-100 last:border-0 animate-fade-in">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm text-dark">${item.name}</h4>
+                            <p class="text-xs text-primary font-semibold">Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gray-100 rounded-lg p-1">
+                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 flex items-center justify-center bg-white rounded text-xs shadow text-dark hover:text-primary"><i class="fa-solid fa-minus"></i></button>
+                            <span class="text-sm font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 flex items-center justify-center bg-white rounded text-xs shadow text-dark hover:text-primary"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="ml-3 text-gray-400 hover:text-red-500 transition"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                    `;
+                });
+                cartItems.innerHTML = html;
+                cartTotal.innerText = "Rp " + total.toLocaleString('id-ID');
+            }
+        }
+
+        function toggleCart(forceOpen = false) {
+            const modal = document.getElementById('cart-modal');
+            const drawer = document.getElementById('cart-drawer');
+            
+            if (modal.classList.contains('hidden') || forceOpen === true) {
+                modal.classList.remove('hidden');
+                // Sedikit delay biar transisi jalan
+                setTimeout(() => {
+                    drawer.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong nih, pilih menu dulu ya!");
+                return;
+            }
+
+            const phone = "6282325670283";
+            let message = "Halo Mie Ayam Raos! Saya mau pesan:%0A%0A";
+            let total = 0;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `- ${item.name} (${item.qty}x) : Rp ${subtotal.toLocaleString('id-ID')}%0A`;
+            });
+
+            message += `%0A*Total Bayar: Rp ${total.toLocaleString('id-ID')}*`;
+            message += "%0A%0AMohon infonya untuk pembayaran dan pengiriman. Hatur nuhun!";
+
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
